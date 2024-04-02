@@ -22,5 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/usuario',[UsuarioController::class,'index']);
 Route::get('/usuario/{id}',[UsuarioController::class,'show']);
 Route::post('/usuario',[UsuarioController::class,'create']);
-Route::put('/usuario/{id}',[UsuarioController::class,'edit-user']);
-Route::put('/usuario-estado/{id}',[UsuarioController::class,'status-user']);
+Route::put('/usuario/{id}',[UsuarioController::class,'actualizar_usuario']);
+Route::put('/usuario-estado/{id}',[UsuarioController::class,'actualizar_estado_usuario']);
