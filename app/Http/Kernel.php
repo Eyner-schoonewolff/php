@@ -25,6 +25,11 @@ class Kernel extends HttpKernel
 
     ];
 
+    protected $routeMiddleware = [
+        // Otros middlewares...
+        'jwt' => \App\Http\Middleware\JwtMiddleware::class,
+    ];
+
     /**
      * The application's route middleware groups.
      *

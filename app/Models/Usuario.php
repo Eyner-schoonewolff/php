@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Usuario extends Model
+class Usuario extends Model implements JWTSubject
 {
     // se agrega el nombre del nombre de las tabla
     protected $table = 'usuario';
@@ -14,4 +15,15 @@ class Usuario extends Model
     public $timestamps = false;
 
     use HasFactory;
+
+    
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
