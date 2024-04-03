@@ -16,18 +16,18 @@ class Kernel extends HttpKernel
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\ConvertToJsonResponse::class,
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\AddJsonContentTypeHeader::class,
 
     ];
 
     protected $routeMiddleware = [
         // Otros middlewares...
-        'jwt' => \App\Http\Middleware\JwtMiddleware::class,
+        'jwt.verify' => \App\Http\Middleware\AddJsonContentTypeHeader::class,
     ];
 
     /**
