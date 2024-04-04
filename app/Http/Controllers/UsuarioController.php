@@ -26,11 +26,10 @@ class UsuarioController extends Controller
             $token = JWTAuth::fromUser($data_usuario);
 
             return response()->json(['usuario' => $data_usuario, 'token' => $token]);
-
         } catch (JWTException $e) {
-            return response()->json(['error' => 'No se pudo crear el token'], 500);
+            return response()->json(['mensaje' => 'No se pudo crear el token'], 500);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], $e->getCode());
+            return response()->json(['mensaje' => $e->getMessage()], $e->getCode());
         }
     }
 
@@ -39,7 +38,13 @@ class UsuarioController extends Controller
         try {
 
             Auth::guard('api')->logout();
-            return response()->json(['mensaje' => 'Sesión cerrada exitosamente'], 200)->withCookie(cookie()->forget('jwt_token'));
+
+            return response()->json(
+                ['mensaje' => 'Sesión cerrada exitosamente'],
+                200
+            )->withCookie(
+                cookie()->forget('jwt_token')
+            );
         } catch (\Exception $e) {
             // Manejar cualquier error que pueda ocurrir al cerrar la sesión
             return response()->json(['error' => $e->getMessage()], 500);
@@ -53,7 +58,14 @@ class UsuarioController extends Controller
             $usuario = Usuario::where('estado', 1)->paginate();
 
             if ($usuario->isEmpty()) {
-                return response()->json(['status' => 404, 'message' => 'No se encuentra informacion disponible en estos momentos'], 404);
+
+                return response()->json(
+                    [
+                        'status' => 404,
+                        'message' => 'No se encuentra informacion disponible en estos momentos'
+                    ],
+                    404
+                );
             }
 
             return $usuario->items();
@@ -68,7 +80,6 @@ class UsuarioController extends Controller
     {
         try {
 
-            error_log(json_encode($this->request->user()->id));
             $usuario = $this->find_user($this->request->user()->id);
 
             return response()->json(['status' => 'ok', 'data' => $usuario], 200);
@@ -115,7 +126,7 @@ class UsuarioController extends Controller
         }
     }
 
-    public function actualizar_estado_usuario(Request $request)
+    public function actualizar_estado_usuario($request)
     {
         try {
 
@@ -141,7 +152,7 @@ class UsuarioController extends Controller
 
             return response()->json(['mensaje' => $mensaje, 'id' => $id_usuario]);
         } catch (\Exception $e) {
-            return response()->json(['status' => $e->getCode(), 'message' => $e->getMessage()], $e->getCode());
+            return response()->json(['status' => $e->getCode(), 'mensaje' => $e->getMessage()], $e->getCode());
         }
     }
 
