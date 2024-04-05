@@ -28,6 +28,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // Otros middlewares...
         'jwt.verify' => \App\Http\Middleware\AddJsonContentTypeHeader::class,
+        // 'noticia' => \App\Http\Middleware\NoticiaMiddleware::class,
     ];
 
     /**

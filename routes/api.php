@@ -3,9 +3,10 @@
 use App\Http\Requests\Usuario;
 use App\Http\Requests\AutenticacionUsuario;
 use App\Http\Requests\RequestEstado;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsuarioController; 
+use App\Http\Controllers\NoticiaControlador;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,15 +18,10 @@ use App\Http\Controllers\UsuarioController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 
 Route::middleware('jwt.verify')->group(function () {
     // Rutas protegidas aquí
-    
+
     Route::get('/usuarios', [UsuarioController::class, 'index']);
     Route::get('/usuario', [UsuarioController::class, 'show']);
 
@@ -51,3 +47,7 @@ Route::post('/usuario', function (Usuario $usuario) {
 Route::post('/auth/login', function (AutenticacionUsuario $request_auth) {
     return app(UsuarioController::class)->login($request_auth);
 });
+
+
+Route::get('/noticia', [NoticiaControlador::class, 'obtener_noticias']);
+

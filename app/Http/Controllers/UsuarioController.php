@@ -146,7 +146,7 @@ class UsuarioController extends Controller
                 $estado == 1 ? "usuario activado correctamente."
                 : (
                     $estado == 0 ? "usuario desactivado correctamente." :
-                    "Estado de la Noticia actualizado correctamente."
+                    "usuario actualizado correctamente."
                 )
             );
 
